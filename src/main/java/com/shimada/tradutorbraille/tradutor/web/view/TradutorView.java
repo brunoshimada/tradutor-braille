@@ -1,19 +1,21 @@
 package com.shimada.tradutorbraille.tradutor.web.view;
 
+import java.util.List;
+
 public class TradutorView {
 
-    private String textoTraduzido;
+    private List<Character> characterList;
 
-    private TradutorView(String textoTraduzido) {
-        this.textoTraduzido = textoTraduzido;
+    private TradutorView(List<Character> characterList) {
+        this.characterList = characterList;
     }
 
-    public String getTextoTraduzido() {
-        return textoTraduzido;
+    public List<Character> getCharacterList() {
+        return characterList;
     }
 
-    public static TradutorView toView(String textoTraduzido) {
-        return new TradutorView(textoTraduzido);
+    public static TradutorView toView(List<Character> characterList) {
+        return new TradutorView(characterList);
     }
 
 }
