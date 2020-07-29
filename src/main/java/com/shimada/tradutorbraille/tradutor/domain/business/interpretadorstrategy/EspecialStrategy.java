@@ -1,6 +1,6 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.interpretadorstrategy;
 
-import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel.EspeciaisEnumConsultavel;
+import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.EnumService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -13,21 +13,20 @@ import java.util.List;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class EspecialStrategy implements IInterpretadorString {
 
-    private final EspeciaisEnumConsultavel especiaisEnumConsultavel;
+    private final EnumService enumService;
 
     @Autowired
-    public EspecialStrategy(EspeciaisEnumConsultavel especiaisEnumConsultavel) {
-        this.especiaisEnumConsultavel = especiaisEnumConsultavel;
+    public EspecialStrategy(EnumService enumService) {
+        this.enumService = enumService;
     }
-
 
     @Override
     public boolean isSatisfiedBy(String input) {
-        return especiaisEnumConsultavel.isPossivel(input);
+        return enumService.isPossivelTraduzirCaracterEspecial(input);
     }
 
     @Override
     public List<Character> obter(String input) {
-        return List.of(especiaisEnumConsultavel.getCodigo(input));
+        return List.of(enumService.getCodigoCaracterEspecial(input));
     }
 }

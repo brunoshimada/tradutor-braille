@@ -1,7 +1,6 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.interpretadorstrategy;
 
-import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel.EspeciaisEnumConsultavel;
-import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel.LetrasEnumConsultavel;
+import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.EnumService;
 import com.shimada.tradutorbraille.tradutor.validator.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +13,17 @@ import java.util.List;
 public class LetraStrategy implements IInterpretadorString {
 
     private final Validator validator;
-    
-    private final EspeciaisEnumConsultavel especiaisEnumConsultavel;
-    private final LetrasEnumConsultavel letrasEnumConsultavel;
+    private final EnumService enumService;
 
     @Autowired
-    public LetraStrategy(Validator validator, EspeciaisEnumConsultavel especiaisEnumConsultavel, LetrasEnumConsultavel letrasEnumConsultavel) {
+    public LetraStrategy(Validator validator, EnumService enumService) {
         this.validator = validator;
-        this.especiaisEnumConsultavel = especiaisEnumConsultavel;
-        this.letrasEnumConsultavel = letrasEnumConsultavel;
+        this.enumService = enumService;
     }
 
     @Override
     public boolean isSatisfiedBy(String input) {
-        boolean isNotEspecial = especiaisEnumConsultavel.isPossivel(input);
+        boolean isNotEspecial = enumService.isPossivelTraduzirCaracterEspecial(input);
         try {
             Double attempt = Double.parseDouble(input);
         } catch (NumberFormatException numberFormatException) {
@@ -43,10 +39,10 @@ public class LetraStrategy implements IInterpretadorString {
         List<Character> output = new ArrayList<>();
 
         if (validator.isUpperCase(input)) {
-            output.add(letrasEnumConsultavel.uppercase());
+            output.add(enumService.getIdentificadorUppercase());
         }
 
-        output.add(letrasEnumConsultavel.getCodigo(input));
+        output.add(enumService.getCodigoLetra(input));
 
         return output;
     }
