@@ -1,7 +1,7 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.interpretadorstrategy;
 
-import com.shimada.tradutorbraille.tradutor.infra.models.Especiais;
-import com.shimada.tradutorbraille.tradutor.infra.models.Letras;
+import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel.EspeciaisEnumConsultavel;
+import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel.LetrasEnumConsultavel;
 import com.shimada.tradutorbraille.tradutor.validator.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,20 @@ import java.util.List;
 public class LetraStrategy implements IInterpretadorString {
 
     private final Validator validator;
+    
+    private final EspeciaisEnumConsultavel especiaisEnumConsultavel;
+    private final LetrasEnumConsultavel letrasEnumConsultavel;
 
     @Autowired
-    public LetraStrategy(Validator validator) {
+    public LetraStrategy(Validator validator, EspeciaisEnumConsultavel especiaisEnumConsultavel, LetrasEnumConsultavel letrasEnumConsultavel) {
         this.validator = validator;
+        this.especiaisEnumConsultavel = especiaisEnumConsultavel;
+        this.letrasEnumConsultavel = letrasEnumConsultavel;
     }
 
     @Override
     public boolean isSatisfiedBy(String input) {
-        boolean isNotEspecial = Especiais.isPossivel(input);
+        boolean isNotEspecial = especiaisEnumConsultavel.isPossivel(input);
         try {
             Double attempt = Double.parseDouble(input);
         } catch (NumberFormatException numberFormatException) {
@@ -38,10 +43,10 @@ public class LetraStrategy implements IInterpretadorString {
         List<Character> output = new ArrayList<>();
 
         if (validator.isUpperCase(input)) {
-            output.add(Letras.uppercase());
+            output.add(letrasEnumConsultavel.uppercase());
         }
 
-        output.add(Letras.getCodigo(input));
+        output.add(letrasEnumConsultavel.getCodigo(input));
 
         return output;
     }

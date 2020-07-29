@@ -1,9 +1,12 @@
 package com.shimada.tradutorbraille.tradutor.web.view;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class TradutorView {
 
+    @JsonProperty("caracteresTraduzidos")
     private List<Character> characterList;
 
     private TradutorView(List<Character> characterList) {

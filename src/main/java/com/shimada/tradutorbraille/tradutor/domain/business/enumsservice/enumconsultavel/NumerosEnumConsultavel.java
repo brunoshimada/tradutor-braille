@@ -1,42 +1,26 @@
-package com.shimada.tradutorbraille.tradutor.infra.models;
+package com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel;
 
-public enum Numeros {
+import com.shimada.tradutorbraille.tradutor.infra.models.enums.NumerosEnum;
 
-    NUMERO(10300),
-    UM(10241),
-    DOIS(10243),
-    TRES(10249),
-    QUATRO(10265),
-    CINCO(10257),
-    SEIS(10251),
-    SETE(10267),
-    OITO(10259),
-    NOVE(10250),
-    ZERO(10266);
+import org.springframework.stereotype.Service;
 
-    private final char codigo;
+@Service
+public class NumerosEnumConsultavel implements IEnumConsultavel {
 
-    Numeros(int codigo) {
-        this.codigo = (char) codigo;
-    }
-
-    private char getCodigo() {
-        return codigo;
-    }
-
-    public static char numero() {
-        return Numeros.NUMERO.getCodigo();
-    }
-
-    public static char getCodigo(String input) {
+    @Override
+    public char getCodigo(String input) {
         final String enumToValidate = parseToStringEnum(input);
 
         try {
-            final Numeros numeros = Numeros.valueOf(enumToValidate);
-            return numeros.getCodigo();
+            final NumerosEnum numerosEnum = NumerosEnum.valueOf(enumToValidate);
+            return numerosEnum.getCodigo();
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Nao foi possível traduzir");
         }
+    }
+
+    public char numero() {
+        return NumerosEnum.NUMERO.getCodigo();
     }
 
     private static String parseToStringEnum(String input) {
