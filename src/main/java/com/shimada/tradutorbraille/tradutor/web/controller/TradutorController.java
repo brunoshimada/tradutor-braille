@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/tradutorBraille")
 public class TradutorController {
@@ -22,7 +24,7 @@ public class TradutorController {
     }
 
     @PostMapping
-    public TradutorView traduzirTexto(@RequestBody TradutorForm tradutorForm) {
+    public TradutorView traduzirTexto(@Valid @RequestBody TradutorForm tradutorForm) {
         return TradutorView.toView(tradutorService.traduzirTexto(tradutorForm));
     }
 

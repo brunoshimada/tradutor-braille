@@ -1,8 +1,11 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel;
 
+import com.shimada.tradutorbraille.tradutor.domain.business.exceptions.NaoPodeConverterException;
 import com.shimada.tradutorbraille.tradutor.infra.models.enums.EspeciaisEnum;
 
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 @Service
 public class EspeciaisEnumConsultavel implements IEnumConsultavel {
@@ -15,7 +18,7 @@ public class EspeciaisEnumConsultavel implements IEnumConsultavel {
             final EspeciaisEnum especiaisEnum = EspeciaisEnum.valueOf(enumToValidate);
             return especiaisEnum.getCodigo();
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("AAAAAAAAAAAAAA");
+            throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
         }
     }
 
@@ -49,7 +52,7 @@ public class EspeciaisEnumConsultavel implements IEnumConsultavel {
                 return "PARENTESE_FECHAMENTO";
             }
             default: {
-                throw new RuntimeException("AAAAAAAAA");
+                throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
             }
         }
     }

@@ -1,8 +1,11 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel;
 
+import com.shimada.tradutorbraille.tradutor.domain.business.exceptions.NaoPodeConverterException;
 import com.shimada.tradutorbraille.tradutor.infra.models.enums.LetrasEnum;
 
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 @Service
 public class LetrasEnumConsultavel implements IEnumConsultavel {
@@ -13,7 +16,7 @@ public class LetrasEnumConsultavel implements IEnumConsultavel {
             final LetrasEnum letrasEnum = LetrasEnum.valueOf(letra.toUpperCase());
             return letrasEnum.getCodigo();
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Nao foi possível traduzir");
+            throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", letra));
         }
     }
 

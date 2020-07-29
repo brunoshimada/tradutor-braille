@@ -1,8 +1,11 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.enumconsultavel;
 
+import com.shimada.tradutorbraille.tradutor.domain.business.exceptions.NaoPodeConverterException;
 import com.shimada.tradutorbraille.tradutor.infra.models.enums.NumerosEnum;
 
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 @Service
 public class NumerosEnumConsultavel implements IEnumConsultavel {
@@ -15,7 +18,7 @@ public class NumerosEnumConsultavel implements IEnumConsultavel {
             final NumerosEnum numerosEnum = NumerosEnum.valueOf(enumToValidate);
             return numerosEnum.getCodigo();
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Nao foi possível traduzir");
+            throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
         }
     }
 
@@ -58,7 +61,7 @@ public class NumerosEnumConsultavel implements IEnumConsultavel {
                 return "NOVE";
             }
             default:{
-                throw new RuntimeException("AAAAA");
+                throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
             }
         }
     }
