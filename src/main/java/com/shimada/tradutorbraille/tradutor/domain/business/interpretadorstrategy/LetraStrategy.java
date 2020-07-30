@@ -1,6 +1,7 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.interpretadorstrategy;
 
 import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.EnumService;
+import com.shimada.tradutorbraille.tradutor.infra.models.DetailedTranslatedCharacter;
 import com.shimada.tradutorbraille.tradutor.validator.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class LetraStrategy implements IInterpretadorString {
     public boolean isSatisfiedBy(String input) {
         boolean isNotEspecial = enumService.isPossivelTraduzirCaracterEspecial(input);
         try {
-            Double attempt = Double.parseDouble(input);
+            Double.parseDouble(input);
         } catch (NumberFormatException numberFormatException) {
             if (!isNotEspecial) {
                 return true;
@@ -35,14 +36,14 @@ public class LetraStrategy implements IInterpretadorString {
     }
 
     @Override
-    public List<Character> obter(String input) {
-        List<Character> output = new ArrayList<>();
+    public List<DetailedTranslatedCharacter> obter(String input) {
+        List<DetailedTranslatedCharacter> output = new ArrayList<>();
 
         if (validator.isUpperCase(input)) {
-            output.add(enumService.getIdentificadorUppercase());
+            output.add(DetailedTranslatedCharacter.obter("Identificado de maiúsculo", enumService.getIdentificadorUppercase()));
         }
 
-        output.add(enumService.getCodigoLetra(input));
+        output.add(DetailedTranslatedCharacter.obter(input, enumService.getCodigoLetra(input)));
 
         return output;
     }

@@ -3,6 +3,7 @@ package com.shimada.tradutorbraille.tradutor.web.controller;
 import com.shimada.tradutorbraille.tradutor.domain.business.TradutorService;
 import com.shimada.tradutorbraille.tradutor.web.form.TradutorForm;
 import com.shimada.tradutorbraille.tradutor.web.view.TradutorView;
+import com.shimada.tradutorbraille.tradutor.web.view.TradutorViewDetailed;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +15,12 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/tradutorBraille")
-public class TradutorController {
+public class TradutorBrailleController {
 
     private final TradutorService tradutorService;
 
     @Autowired
-    public TradutorController(TradutorService tradutorService) {
+    public TradutorBrailleController(TradutorService tradutorService) {
         this.tradutorService = tradutorService;
     }
 
@@ -28,4 +29,8 @@ public class TradutorController {
         return TradutorView.toView(tradutorService.traduzirTexto(tradutorForm));
     }
 
+    @PostMapping(value = "/detailed")
+    public TradutorViewDetailed traduzirTextoDetailed(@Valid @RequestBody TradutorForm tradutorForm) {
+        return TradutorViewDetailed.toView(tradutorService.traduzirTexto(tradutorForm));
+    }
 }

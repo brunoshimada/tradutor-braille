@@ -1,6 +1,7 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.interpretadorstrategy;
 
 import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.EnumService;
+import com.shimada.tradutorbraille.tradutor.infra.models.DetailedTranslatedCharacter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -26,7 +27,7 @@ public class EspecialStrategy implements IInterpretadorString {
     }
 
     @Override
-    public List<Character> obter(String input) {
-        return List.of(enumService.getCodigoCaracterEspecial(input));
+    public List<DetailedTranslatedCharacter> obter(String input) {
+        return List.of(DetailedTranslatedCharacter.obter(input, enumService.getCodigoCaracterEspecial(input)));
     }
 }

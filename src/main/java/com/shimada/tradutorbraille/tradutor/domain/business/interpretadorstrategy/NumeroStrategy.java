@@ -1,6 +1,7 @@
 package com.shimada.tradutorbraille.tradutor.domain.business.interpretadorstrategy;
 
 import com.shimada.tradutorbraille.tradutor.domain.business.enumsservice.EnumService;
+import com.shimada.tradutorbraille.tradutor.infra.models.DetailedTranslatedCharacter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class NumeroStrategy implements IInterpretadorString {
     @Override
     public boolean isSatisfiedBy(String input) {
         try {
-            Integer attempt = Integer.parseInt(input);
+            Integer.parseInt(input);
         } catch (NumberFormatException numberFormatException) {
             return false;
         }
@@ -29,11 +30,11 @@ public class NumeroStrategy implements IInterpretadorString {
     }
 
     @Override
-    public List<Character> obter(String input) {
-        List<Character> output = new ArrayList<>();
+    public List<DetailedTranslatedCharacter> obter(String input) {
+        List<DetailedTranslatedCharacter> output = new ArrayList<>();
 
-        output.add(enumService.getIdentificadorNumero());
-        output.add(enumService.getCodigoNumero(input));
+        output.add(DetailedTranslatedCharacter.obter("Identificador de número", enumService.getIdentificadorNumero()));
+        output.add(DetailedTranslatedCharacter.obter(input, enumService.getCodigoNumero(input)));
 
         return output;
     }
