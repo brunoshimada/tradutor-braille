@@ -16,6 +16,8 @@ public class LetraStrategy implements IInterpretadorString {
     private final Validator validator;
     private final EnumService enumService;
 
+    private final String IDENTIFICADOR_MAISCULO = "Identificado de maiúsculo";
+
     @Autowired
     public LetraStrategy(Validator validator, EnumService enumService) {
         this.validator = validator;
@@ -40,7 +42,7 @@ public class LetraStrategy implements IInterpretadorString {
         List<DetailedTranslatedCharacter> output = new ArrayList<>();
 
         if (validator.isUpperCase(input)) {
-            output.add(DetailedTranslatedCharacter.obter("Identificado de maiúsculo", enumService.getIdentificadorUppercase()));
+            output.add(DetailedTranslatedCharacter.obter(IDENTIFICADOR_MAISCULO, enumService.getIdentificadorUppercase()));
         }
 
         output.add(DetailedTranslatedCharacter.obter(input, enumService.getCodigoLetra(input)));

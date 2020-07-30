@@ -18,11 +18,11 @@ public class EspeciaisEnumConsultavel implements IEnumConsultavel {
             final EspeciaisEnum especiaisEnum = EspeciaisEnum.valueOf(enumToValidate);
             return especiaisEnum.getCodigo();
         } catch (IllegalArgumentException e) {
-            throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
+            throw new NaoPodeConverterException(MessageFormat.format(getExceptionMessage(), input));
         }
     }
 
-    private static String parseToStringEnum(String input) {
+    private String parseToStringEnum(String input) {
         switch (input) {
             case ".": {
                 return "PONTO";
@@ -52,7 +52,7 @@ public class EspeciaisEnumConsultavel implements IEnumConsultavel {
                 return "PARENTESE_FECHAMENTO";
             }
             default: {
-                throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
+                throw new NaoPodeConverterException(MessageFormat.format(getExceptionMessage(), input));
             }
         }
     }

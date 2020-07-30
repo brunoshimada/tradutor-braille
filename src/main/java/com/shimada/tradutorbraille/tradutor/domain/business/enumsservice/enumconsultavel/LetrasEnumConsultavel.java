@@ -16,7 +16,7 @@ public class LetrasEnumConsultavel implements IEnumConsultavel {
             final LetrasEnum letrasEnum = LetrasEnum.valueOf(letra.toUpperCase());
             return letrasEnum.getCodigo();
         } catch (IllegalArgumentException e) {
-            throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", letra));
+            throw new NaoPodeConverterException(MessageFormat.format(getExceptionMessage(), letra));
         }
     }
 

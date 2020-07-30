@@ -14,6 +14,8 @@ public class NumeroStrategy implements IInterpretadorString {
 
     private final EnumService enumService;
 
+    private final String IDENTIFICADOR_NUMERO = "Identificador de número";
+
     @Autowired
     public NumeroStrategy(EnumService enumService) {
         this.enumService = enumService;
@@ -33,7 +35,7 @@ public class NumeroStrategy implements IInterpretadorString {
     public List<DetailedTranslatedCharacter> obter(String input) {
         List<DetailedTranslatedCharacter> output = new ArrayList<>();
 
-        output.add(DetailedTranslatedCharacter.obter("Identificador de número", enumService.getIdentificadorNumero()));
+        output.add(DetailedTranslatedCharacter.obter(IDENTIFICADOR_NUMERO, enumService.getIdentificadorNumero()));
         output.add(DetailedTranslatedCharacter.obter(input, enumService.getCodigoNumero(input)));
 
         return output;

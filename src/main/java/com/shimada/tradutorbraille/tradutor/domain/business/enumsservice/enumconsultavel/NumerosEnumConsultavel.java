@@ -18,7 +18,7 @@ public class NumerosEnumConsultavel implements IEnumConsultavel {
             final NumerosEnum numerosEnum = NumerosEnum.valueOf(enumToValidate);
             return numerosEnum.getCodigo();
         } catch (IllegalArgumentException e) {
-            throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
+            throw new NaoPodeConverterException(MessageFormat.format(getExceptionMessage(), input));
         }
     }
 
@@ -26,7 +26,7 @@ public class NumerosEnumConsultavel implements IEnumConsultavel {
         return NumerosEnum.NUMERO.getCodigo();
     }
 
-    private static String parseToStringEnum(String input) {
+    private String parseToStringEnum(String input) {
         final int integer = Integer.parseInt(input);
 
         switch (integer) {
@@ -61,7 +61,7 @@ public class NumerosEnumConsultavel implements IEnumConsultavel {
                 return "NOVE";
             }
             default:{
-                throw new NaoPodeConverterException(MessageFormat.format("Caracter {0} nao suportado pela aplicação", input));
+                throw new NaoPodeConverterException(MessageFormat.format(getExceptionMessage(), input));
             }
         }
     }
