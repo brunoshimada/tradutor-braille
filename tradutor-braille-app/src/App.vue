@@ -1,19 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <InputComponent @output-avaliable="outputProcessor"></InputComponent>
+
+    <OutputComponent
+      v-for="(item, index) in data"
+      :key="index"
+      :id="index"
+      :title="item.originalInput"
+      :charCode="item.charCode"
+    ></OutputComponent>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import InputComponent from '@/components/InputComponent'
+import OutputComponent from '@/components/OutputComponent'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    HelloWorld
+    InputComponent,
+    OutputComponent
+  },
+  data() {
+    return {
+      data: []
+    }
+  },
+  methods: {
+    outputProcessor(outputAvaliable) {
+      this.data = outputAvaliable.caracteresTraduzidos
+    }
   }
-};
+}
 </script>
 
 <style>
