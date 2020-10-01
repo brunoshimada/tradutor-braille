@@ -1,5 +1,15 @@
 <template>
-  <input type="text" v-model="inputSearch" @keyup.enter="entered" />
+  <div class="ui action input" id="inputBox">
+    <input
+      placeholder="O que vamos traduzir hoje?"
+      type="text"
+      v-model="inputSearch"
+      @keyup.enter="entered"
+    />
+    <button class="ui button teal" id="inputBtn" @click="entered">
+      Traduzir
+    </button>
+  </div>
 </template>
 
 <script>
@@ -46,4 +56,18 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+#inputBox {
+  height: 5vh;
+  width: 50vw;
+  margin: auto;
+  font-size: 20px;
+  margin: 10px 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#inputBtn {
+  font-size: 15px;
+}
+</style>

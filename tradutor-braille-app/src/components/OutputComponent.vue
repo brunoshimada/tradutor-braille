@@ -1,5 +1,7 @@
 <template>
-  <p :id="id" :title="originalInput">{{ charCode }}</p>
+  <div :id="id" :title="originalInput">
+    <p>{{ charCode }}</p>
+  </div>
 </template>
 
 <script>
@@ -24,4 +26,18 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+div {
+  width: 20vw;
+  height: 10vw;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+p {
+  font-size: 50px;
+}
+</style>
