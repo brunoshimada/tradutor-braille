@@ -6,13 +6,15 @@
       v-model="inputSearch"
       @keyup.enter="entered"
     />
-    <button class="ui button teal" id="inputBtn" @click="entered">
+    <button class="large ui button teal" id="inputBtn" @click="entered">
       Traduzir
     </button>
   </div>
 </template>
 
 <script>
+import { doRequest } from '../js/RequestHelper'
+
 export default {
   data() {
     return {
@@ -36,21 +38,16 @@ export default {
 
       let url = new URL('http://localhost:9000/tradutorBraille/detailed')
 
-      let response = fetch(url, options)
+      let response = doRequest(url, options)
 
-      response
-        .then(response => {
-          return response.json()
-        })
-        .then(json => {
-          this.outputSearch = json
-        })
-        .catch(error => {
-          console.error(error)
-        })
-        .finally(() => {
+      response.then(response => {
+        if (response.success) {
+          this.outputSearch = response.body
           this.$emit('output-avaliable', this.outputSearch)
-        })
+        } else {
+          this.$emit('output-error', response.body)
+        }
+      })
     }
   }
 }
@@ -68,6 +65,6 @@ export default {
 }
 
 #inputBtn {
-  font-size: 15px;
+  font-size: 18.5px;
 }
 </style>
