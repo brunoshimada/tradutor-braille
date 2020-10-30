@@ -51,6 +51,9 @@ public class EspeciaisEnumConsultavel implements IEnumConsultavel {
             case ")": {
                 return "PARENTESE_FECHAMENTO";
             }
+            case " ": {
+                return "ESPACO";
+            }
             default: {
                 throw new NaoPodeConverterException(MessageFormat.format(getExceptionMessage(), input));
             }
@@ -58,7 +61,7 @@ public class EspeciaisEnumConsultavel implements IEnumConsultavel {
     }
 
     public boolean isPossivel(String input) {
-        final String cadastrados = ".,;?!-\"()";
+        final String cadastrados = ".,;?!-\"() ";
         return cadastrados.contains(input);
     }
 
