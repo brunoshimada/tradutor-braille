@@ -1,6 +1,6 @@
 <template>
-  <div :id="id" :title="originalInput">
-    <p>{{ charCode }}</p>
+  <div :id="id" @mouseover="onHover" @mouseleave="onLeave" class="output">
+    <p>{{ displayText }}</p>
   </div>
 </template>
 
@@ -21,23 +21,35 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      displayText: this.charCode
+    }
+  },
+  methods: {
+    onHover() {
+      this.displayText = this.originalInput
+    },
+    onLeave() {
+      this.displayText = this.charCode
+    }
   }
 }
 </script>
 
 <style scoped>
 div {
-  width: 20vw;
-  height: 10vw;
-  margin: auto;
+  width: 15%;
+  height: 10vh;
+  margin: 10px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  border: 1px #ccfffd solid;
+  border-radius: 30px;
 }
 
 p {
-  font-size: 50px;
+  font-size: 30px;
 }
 </style>

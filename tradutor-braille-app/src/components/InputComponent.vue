@@ -14,6 +14,7 @@
 
 <script>
 import { doRequest } from '../js/RequestHelper'
+import { clean } from '../js/StringHelper'
 
 export default {
   data() {
@@ -25,7 +26,7 @@ export default {
   methods: {
     entered() {
       let payload = {
-        textoParaTraduzir: this.inputSearch
+        textoParaTraduzir: clean(this.inputSearch)
       }
 
       let options = {
@@ -40,14 +41,16 @@ export default {
 
       let response = doRequest(url, options)
 
-      response.then(response => {
-        if (response.success) {
-          this.outputSearch = response.body
-          this.$emit('output-avaliable', this.outputSearch)
-        } else {
-          this.$emit('output-error', response.body)
-        }
-      })
+      response
+        .then(response => {
+          if (response.success) {
+            this.outputSearch = response.body
+            this.$emit('output-avaliable', this.outputSearch)
+          } else {
+            this.$emit('output-error', response.body)
+          }
+        })
+        .finally(() => (this.inputSearch = ''))
     }
   }
 }

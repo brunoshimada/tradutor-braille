@@ -11,6 +11,8 @@
       @close-modal="closeModal"
     ></ErrorComponent>
 
+    <AlertComponent v-show="alert" @close-alert="closeAlert"></AlertComponent>
+
     <div id="output-box">
       <OutputComponent
         v-for="(item, index) in data"
@@ -27,32 +29,38 @@
 import InputComponent from '@/components/InputComponent'
 import OutputComponent from '@/components/OutputComponent'
 import ErrorComponent from '@/components/ErrorComponent'
+import AlertComponent from '@/components/AlertComponent'
 
 export default {
   name: 'App',
   components: {
     InputComponent,
     OutputComponent,
-    ErrorComponent
+    ErrorComponent,
+    AlertComponent
   },
   data() {
     return {
       data: [],
-      error: ''
+      error: '',
+      alert: false
     }
   },
   methods: {
     outputProcessor(outputAvaliable) {
       this.error = ''
+      this.alert = true
       this.data = outputAvaliable.caracteresTraduzidos
     },
     outputError(body) {
       this.data = []
       this.error = body.message
-      console.log('erro na aplicacoa', body.message)
     },
     closeModal() {
       this.error = ''
+    },
+    closeAlert() {
+      this.alert = false
     }
   },
   computed: {
@@ -86,7 +94,12 @@ export default {
 
 #output-box {
   display: flex;
-  background-color: lightblue;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-around;
+  border: 1px solid #aafffb;
+  border-bottom: none;
   border-radius: 30px;
 }
 </style>

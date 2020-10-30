@@ -28,6 +28,8 @@ public class EspecialStrategy implements IInterpretadorString {
 
     @Override
     public List<DetailedTranslatedCharacter> obter(String input) {
-        return List.of(DetailedTranslatedCharacter.obter(input, enumService.getCodigoCaracterEspecial(input)));
+        var inputHelpr = input.equals(" ") ? "espaço" : input;
+
+        return List.of(DetailedTranslatedCharacter.obter(inputHelpr, enumService.getCodigoCaracterEspecial(input)));
     }
 }
